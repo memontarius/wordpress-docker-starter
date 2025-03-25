@@ -8,7 +8,7 @@ DOCKER_FILE=docker-compose.yml
 cnn=$(CONTAINER_PREFIX)_app # Container name
 
 prepare-env:
-	cp -n .env.example .env || true
+	cp -n .env.sample .env || true
 
 i:
 	composer install
