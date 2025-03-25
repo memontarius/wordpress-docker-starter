@@ -1,0 +1,6 @@
+/vendor/
+/wordpress/*
+/.idea/
+/.git/
+.env
+!wordpress/wp-config.php
