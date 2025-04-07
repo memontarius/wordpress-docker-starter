@@ -48,7 +48,7 @@ in:
 # DB
 
 dump_name=dump_$(DB_DATABASE).sql
-fix_dump_name=fixed_$(dump_name)
+fix_dump_name=fixed_dump_$(DB_DATABASE).sql
 
 in-db:
 	docker exec -it $(dbcnn) bash
@@ -65,10 +65,11 @@ new=
 rep: # Replace string (old replace new) in dump file
 	sed 's~$(old)~$(new)~g' $(dump_name) > $(fix_dump_name)
 
+dump_name=$(fix_dump_name)
 import:
 	echo "[client]\nuser=$(DB_USERNAME)\npassword=$(DB_PASSWORD)" > ~/.my.cnf && \
 	docker cp ~/.my.cnf $(CONTAINER_PREFIX)_db:/root/.my.cnf && \
-	docker exec -i $(CONTAINER_PREFIX)_db mysql --defaults-extra-file=/root/.my.cnf $(DB_DATABASE) < $(fix_dump_name)
+	docker exec -i $(CONTAINER_PREFIX)_db mysql --defaults-extra-file=/root/.my.cnf $(DB_DATABASE) < $(dump_name)
 	docker exec -i $(CONTAINER_PREFIX)_db rm -f /root/.my.cnf
 	rm -f ~/.my.cnf
 

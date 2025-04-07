@@ -95,7 +95,11 @@ $table_prefix = $_ENV['DB_TABLE_PREFIX'];
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
+
+define( 'WP_DEBUG_DISPLAY', true );
+
+header('Set-Cookie: HttpOnly; SameSite=Strict');
 
 /* Add any custom values between this line and the "stop editing" line. */
 
